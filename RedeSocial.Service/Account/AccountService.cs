@@ -5,11 +5,11 @@ using System.Text;
 
 namespace RedeSocial.Services.Account
 {
-    public class AccountServices : IAccountService
+    public class AccountService : IAccountService, IAccountIdentityManager
     {
         private IAccountRepository AccountRepository { get; set; }
 
-        public AccountServices(IAccountRepository accountRepository) 
+        public AccountService(IAccountRepository accountRepository) 
         {
             this.AccountRepository = accountRepository;
         }
