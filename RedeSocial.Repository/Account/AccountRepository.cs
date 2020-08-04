@@ -16,7 +16,7 @@ namespace RedeSocial.Repository.Account
         private bool disposedValue;
         private RedeSocialContext Context { get; set; }
 
-        public AccountRepository(RedeSocialContext redeSocialContext) 
+        public AccountRepository(RedeSocialContext redeSocialContext)
         {
             this.Context = redeSocialContext;
         }
@@ -47,7 +47,8 @@ namespace RedeSocial.Repository.Account
 
         public Task<string> GetNormalizedUserNameAsync(Domain.Account.Account user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.Name);
+            //return Task.FromResult(user.Email);
+            return Task.FromResult(user.UserName);
         }
 
         public Task<string> GetUserIdAsync(Domain.Account.Account user, CancellationToken cancellationToken)
@@ -57,32 +58,52 @@ namespace RedeSocial.Repository.Account
 
         public Task<string> GetUserNameAsync(Domain.Account.Account user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            //return Task.FromResult(user.Email.ToString());
+            return Task.FromResult(user.UserName.ToString());
         }
 
         public Task SetNormalizedUserNameAsync(Domain.Account.Account user, string normalizedName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            //user.Email = normalizedName;
+            user.UserName = normalizedName;
+            return Task.CompletedTask;
         }
 
         public Task SetUserNameAsync(Domain.Account.Account user, string userName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            //user.Email = userName;
+            user.UserName = userName;
+            return Task.CompletedTask;
         }
 
         public async Task<IdentityResult> UpdateAsync(Domain.Account.Account user, CancellationToken cancellationToken)
         {
             var accountToUpdate = await this.Context.Accounts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == user.Id);
-           
+
             accountToUpdate = user;
             this.Context.Entry(accountToUpdate).State = EntityState.Modified;
 
             this.Context.Accounts.Add(accountToUpdate);
             await this.Context.SaveChangesAsync();
 
-            return IdentityResult.Success; 
+            return IdentityResult.Success;
         }
 
+        public Task<Domain.Account.Account> GetAccountByEmailPassword(string email, string password)
+        {
+            return Task.FromResult(this.Context.Accounts
+                                                .Include(x => x.Role)
+                                                .FirstOrDefault(x => x.Email == email && x.Password == password));
+        }
+
+        public Task<Domain.Account.Account> GetAccountByUserNamePassword(string username, string password)
+        {
+            return Task.FromResult(this.Context.Accounts
+                                                .Include(x => x.Role)
+                                                .FirstOrDefault(x => x.UserName == username && x.Password == password));
+        }
+
+        #region Dispose Implementation
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -111,5 +132,6 @@ namespace RedeSocial.Repository.Account
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+        #endregion
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RedeSocial.Services.Account
 {
-    public class AccountService : IAccountService, IAccountIdentityManager
+    public class AccountService : IAccountService //, IAccountIdentityManager
     {
         private IAccountRepository AccountRepository { get; set; }
 

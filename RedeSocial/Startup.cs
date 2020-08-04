@@ -34,7 +34,7 @@ namespace RedeSocial
         {
             services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddTransient<IUserStore<Account>, AccountRepository>();
-            services.AddTransient<IRoleStore<Profile>, ProfileRepository>();
+            services.AddTransient<IRoleStore<Role>, RoleRepository>();
             services.AddTransient<IAccountIdentityManager, AccountIdentityManager>();
             services.AddTransient<IAccountService, AccountService>();
 
@@ -47,7 +47,7 @@ namespace RedeSocial
             //    options.UseSqlServer(
             //        Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<Account, Profile>()
+            services.AddIdentity<Account, Role>()
                 //.AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

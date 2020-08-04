@@ -7,11 +7,11 @@ using System.Text;
 
 namespace RedeSocial.Repository.Mapping
 {
-    public class ProfileMap : IEntityTypeConfiguration<Profile>
+    public class RoleMap : IEntityTypeConfiguration<Role>
     {
-        public void Configure(EntityTypeBuilder<Profile> builder)
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.ToTable("Profile");
+            builder.ToTable("Role");
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();

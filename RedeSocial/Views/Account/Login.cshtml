@@ -1,19 +1,49 @@
-﻿@{
+﻿@*@{
+        ViewData["Title"] = "Home Page";
+    }
+
+    @model RedeSocial.Web.ViewModel.Account.LoginViewModel
+
+    <div class="text-center">
+        <h1 class="display-4">Login na Rede Social de Horta</h1>
+    </div>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <form asp-action="Login" asp-controller="Account" method="post">
+        <div class="form-group">
+            <label asp-for="Email">Email</label>
+
+            <input type="email" asp-for="Email"class="form-control" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label asp-for="Password">Senha</label>
+            <input type="password" asp-action="Password" class="form-control" placeholder="Senha">
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>*@
+
+@{
     ViewData["Title"] = "Home Page";
 }
+
+@model RedeSocial.Web.ViewModel.Account.LoginViewModel
 
 <div class="text-center">
     <h1 class="display-4">Login na Rede Social de Horta</h1>
 </div>
 
-<form>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="Login" asp-controller="Account" method="post" asp-route-returnurl="@ViewBag.ReturnUrl">
     <div class="form-group">
-        <label for="exampleInputEmail1">Email</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <label asp-for="UserName">UserName</label>
+        <input type="text" asp-for="UserName" class="form-control" placeholder="UserName">
+
+        @*<label asp-for="Email">Email</label>
+        <input type="email" asp-for="Email" class="form-control" placeholder="Email">*@
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Senha</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label asp-for="Password">Senha</label>
+        <input type="password" asp-for="Password" class="form-control" placeholder="Senha">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Entrar</button>
 </form>

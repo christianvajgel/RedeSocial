@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RedeSocial.Repository.Context;
 
 namespace RedeSocial.Repository.Migrations
 {
     [DbContext(typeof(RedeSocialContext))]
-    partial class RedeSocialContextModelSnapshot : ModelSnapshot
+    [Migration("20200804103109_AlterTableProfileToRole")]
+    partial class AlterTableProfileToRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,10 +47,6 @@ namespace RedeSocial.Repository.Migrations
 
                     b.Property<Guid?>("RoleId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 

@@ -10,68 +10,68 @@ using System.Threading.Tasks;
 
 namespace RedeSocial.Repository.Account
 {
-    public class ProfileRepository : IRoleStore<Profile>
+    public class RoleRepository : IRoleStore<Role>
     {
         private bool disposedValue;
 
         private RedeSocialContext Context { get; set; }
 
-        public ProfileRepository(RedeSocialContext redeSocialContext) 
+        public RoleRepository(RedeSocialContext redeSocialContext) 
         {
             this.Context = redeSocialContext;
         }
 
-        public async Task<IdentityResult> CreateAsync(Profile role, CancellationToken cancellationToken)
+        public async Task<IdentityResult> CreateAsync(Role role, CancellationToken cancellationToken)
         {
             this.Context.Profiles.Add(role);
             await this.Context.SaveChangesAsync();
             return IdentityResult.Success;
         }
 
-        public async Task<IdentityResult> DeleteAsync(Profile role, CancellationToken cancellationToken)
+        public async Task<IdentityResult> DeleteAsync(Role role, CancellationToken cancellationToken)
         {
             this.Context.Profiles.Remove(role);
             await this.Context.SaveChangesAsync();
             return IdentityResult.Success;
         }
 
-        public async Task<Profile> FindByIdAsync(string roleId, CancellationToken cancellationToken)
+        public async Task<Role> FindByIdAsync(string roleId, CancellationToken cancellationToken)
         {
             return await this.Context.Profiles.FirstOrDefaultAsync(x => x.Id == new Guid(roleId));
         }
 
-        public async Task<Profile> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
+        public async Task<Role> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
         {
             return await this.Context.Profiles.FirstOrDefaultAsync(x => x.Id == new Guid(normalizedRoleName));
         }
 
-        public Task<string> GetNormalizedRoleNameAsync(Profile role, CancellationToken cancellationToken)
+        public Task<string> GetNormalizedRoleNameAsync(Role role, CancellationToken cancellationToken)
         {
             return Task.FromResult(role.Name);
         }
 
-        public Task<string> GetRoleIdAsync(Profile role, CancellationToken cancellationToken)
+        public Task<string> GetRoleIdAsync(Role role, CancellationToken cancellationToken)
         {
             return Task.FromResult(role.Id.ToString());
         }
 
-        public Task<string> GetRoleNameAsync(Profile role, CancellationToken cancellationToken)
+        public Task<string> GetRoleNameAsync(Role role, CancellationToken cancellationToken)
         {
             return Task.FromResult(role.Name);
         }
 
-        public Task SetNormalizedRoleNameAsync(Profile role, string normalizedName, CancellationToken cancellationToken)
+        public Task SetNormalizedRoleNameAsync(Role role, string normalizedName, CancellationToken cancellationToken)
         {
             role.Name = normalizedName;
             return Task.CompletedTask;
         }
 
-        public Task SetRoleNameAsync(Profile role, string roleName, CancellationToken cancellationToken)
+        public Task SetRoleNameAsync(Role role, string roleName, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IdentityResult> UpdateAsync(Profile role, CancellationToken cancellationToken)
+        public async Task<IdentityResult> UpdateAsync(Role role, CancellationToken cancellationToken)
         {
             var roleToUpdate = await this.Context.Profiles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == role.Id);
 
